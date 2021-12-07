@@ -20,6 +20,12 @@ public class PersonaRepositoryImpl implements PersonaRepository{
 		// TODO Auto-generated method stub
 		return personaDaoRepository.findById(idPersona);
 	}
+
+	@Override
+	public Persona save(Persona persona) {
+		// TODO Auto-generated method stub
+		return personaDaoRepository.save(persona);
+	}
 	
 
 }

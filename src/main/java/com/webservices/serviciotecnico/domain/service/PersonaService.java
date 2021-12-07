@@ -18,4 +18,8 @@ public class PersonaService {
 		return personaRepository.getPersona(idPersona);
 	}
 
+	public Persona save(Persona persona) {
+		return personaRepository.save(persona);
+	}
+
 }
