@@ -1,5 +1,6 @@
 package com.webservices.serviciotecnico.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class PersonaRepositoryImpl implements PersonaRepository{
 	public Persona save(Persona persona) {
 		// TODO Auto-generated method stub
 		return personaDaoRepository.save(persona);
+	}
+
+	@Override
+	public Optional<List<Persona>> getPeopleActive() {
+		// TODO Auto-generated method stub
+		Optional<List<Persona>> personas = personaDaoRepository.findAllByEstado("A");
+		return personas;
 	}
 	
 

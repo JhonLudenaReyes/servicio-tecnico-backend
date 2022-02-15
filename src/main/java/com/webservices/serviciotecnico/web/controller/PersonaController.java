@@ -1,5 +1,6 @@
 package com.webservices.serviciotecnico.web.controller;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,19 +18,24 @@ import com.webservices.serviciotecnico.persistence.model.Persona;
 @RestController
 @RequestMapping("/personas")
 public class PersonaController {
-	
+
 	@Autowired
 	private PersonaService personaService;
-	
+
 	@GetMapping("/{idPersona}")
-	public ResponseEntity<Persona> getPersona(@PathVariable("idPersona") int idPersona){
-		return personaService.getPersona(idPersona)
-				.map(persona -> new ResponseEntity<>(persona, HttpStatus.OK))
+	public ResponseEntity<Persona> getPersona(@PathVariable("idPersona") int idPersona) {
+		return personaService.getPersona(idPersona).map(persona -> new ResponseEntity<>(persona, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-	
+
+	@GetMapping("/people-active")
+	public ResponseEntity<List<Persona>> getAllPeople() {
+		return personaService.getAllPeople().map(personas -> new ResponseEntity<>(personas, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+
 	@PostMapping("/save")
-	public ResponseEntity<Persona> save(@RequestBody Persona persona){
+	public ResponseEntity<Persona> save(@RequestBody Persona persona) {
 		return new ResponseEntity<>(personaService.save(persona), HttpStatus.CREATED);
 	}
 

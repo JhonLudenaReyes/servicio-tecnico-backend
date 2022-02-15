@@ -1,5 +1,6 @@
 package com.webservices.serviciotecnico.domain.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class PersonaService {
 
 	public Persona save(Persona persona) {
 		return personaRepository.save(persona);
+	}
+	
+	public Optional<List<Persona>> getAllPeople() {
+		return personaRepository.getPeopleActive();
 	}
 
 }
