@@ -1,6 +1,7 @@
 package com.webservices.serviciotecnico.web.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +39,28 @@ public class PersonaController {
 	@PostMapping("/save")
 	public ResponseEntity<Persona> save(@RequestBody Persona persona) {
 		return new ResponseEntity<>(personaService.save(persona), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/update-person")
+	public ResponseEntity<Persona> updatePerson(@RequestBody Persona persona){
+		Optional<Persona> optionalPerson = personaService.getPersona(persona.getIdPersona());
+		if(optionalPerson.isPresent()) {
+			return new ResponseEntity<>(personaService.save(persona), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping("/delete-person-log/{personId}")
+	public ResponseEntity<Persona> deletePerson(@PathVariable("personId") int personId){
+		Optional<Persona> optionalPerson = personaService.getPersona(personId);
+		if(optionalPerson.isPresent()) {
+			Persona updatePerson = optionalPerson.get();
+			updatePerson.setEstado("I");
+			return new ResponseEntity<>(personaService.save(updatePerson), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }
