@@ -28,6 +28,12 @@ public class PermisoRepositoryImpl implements PermisoRepository{
 		Optional<List<Permiso>> permisos = permisoDaoRepository.findAllByEstado("A");
 		return permisos;
 	}
+
+	@Override
+	public Optional<Permiso> getPermit(int permitId) {
+		// TODO Auto-generated method stub
+		return permisoDaoRepository.findById(permitId);
+	}
 	
 	
 

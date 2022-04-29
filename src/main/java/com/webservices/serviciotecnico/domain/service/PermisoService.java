@@ -22,5 +22,9 @@ public class PermisoService {
 	public Optional<List<Permiso>> findPermits(){
 		return permisoRepository.findPermits();
 	}
+	
+	public Optional<Permiso> getPermit(int permitId){
+		return permisoRepository.getPermit(permitId);
+	}
 
 }
