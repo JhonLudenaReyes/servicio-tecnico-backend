@@ -20,6 +20,8 @@ import com.webservices.serviciotecnico.persistence.model.Permiso;
 @RestController
 @RequestMapping("/permisos")
 public class PermisoController {
+	
+	//Permit Class
 
 	@Autowired
 	private PermisoService permisoService;
