@@ -15,7 +15,19 @@ public class RolService {
 	@Autowired
 	private RolRepository rolRepository;
 	
+	public Optional<Rol> getRole(int idRole){
+		return rolRepository.getRole(idRole);
+	}
+	
 	public Optional<List<Rol>> getRolesActive(){
 		return rolRepository.getAllRolesActive();
+	}
+	
+	public Optional<List<Rol>> getRoles(){
+		return rolRepository.getRoles();
+	}
+	
+	public Rol saveRol(Rol rol) {
+		return rolRepository.saveRol(rol);
 	}
 }

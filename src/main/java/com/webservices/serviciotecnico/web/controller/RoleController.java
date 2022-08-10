@@ -23,5 +23,11 @@ public class RoleController {
 	public ResponseEntity<List<Role>> getRoles(){
 		return new ResponseEntity<>(roleService.getRoles(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/active-roles")
+	public ResponseEntity<List<Role>> getActiveRoles(){
+		return roleService.getActiveRoles().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
 
 }

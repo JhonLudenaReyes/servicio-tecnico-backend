@@ -23,6 +23,25 @@ public class RolRepositoryImpl implements RolRepository{
 		Optional<List<Rol>> roles = rolDaoRepository.findByEstado("A"); 
 		return roles;
 	}
+
+	@Override
+	public Rol saveRol(Rol rol) {
+		// TODO Auto-generated method stub
+		return rolDaoRepository.save(rol);
+	}
+
+	@Override
+	public Optional<List<Rol>> getRoles() {
+		// TODO Auto-generated method stub
+		Optional<List<Rol>> roles = rolDaoRepository.getRoles();
+		return roles;
+	}
+
+	@Override
+	public Optional<Rol> getRole(int idRole) {
+		// TODO Auto-generated method stub
+		return rolDaoRepository.findById(idRole);
+	}
 	
 
 }

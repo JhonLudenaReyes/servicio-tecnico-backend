@@ -1,6 +1,7 @@
 package com.webservices.serviciotecnico.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class RoleService {
 	
 	public List<Role> getRoles(){
 		return roleRepository.getRoles();
+	}
+	
+	public Optional<List<Role>> getActiveRoles(){
+		return roleRepository.getActiveRoles();
 	}
 }
