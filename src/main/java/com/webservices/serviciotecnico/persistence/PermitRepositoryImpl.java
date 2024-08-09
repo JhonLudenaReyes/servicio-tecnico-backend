@@ -1,6 +1,7 @@
 package com.webservices.serviciotecnico.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,12 +15,20 @@ public class PermitRepositoryImpl implements PermitRepository{
 
 	@Autowired
 	private PermitDaoRepository permitDaoRepository;
-	
+
 	@Override
-	public List<Permit> getPermits() {
+	public Optional<List<Permit>> getPermits() {
 		// TODO Auto-generated method stub
-		return permitDaoRepository.findAll();
+		return permitDaoRepository.findAllByEstado("A");
 	}
+
+	@Override
+	public Permit save(Permit permit) {
+		// TODO Auto-generated method stub
+		return permitDaoRepository.save(permit);
+	}
+	
+	
 	
 	
 

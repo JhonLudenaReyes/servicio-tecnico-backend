@@ -26,21 +26,22 @@ public class PermisoController {
 	@Autowired
 	private PermisoService permisoService;
 
-	@PostMapping("/save_permits")
-	public ResponseEntity<Permiso> save(@RequestBody Permiso permiso) {
-		return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.CREATED);
+	
+	@GetMapping("/all-permits")
+	public ResponseEntity<List<Permiso>> findPermits() {
+		return permisoService.findPermits().map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-
+	
 	@GetMapping("/{permitId}")
 	public ResponseEntity<Permiso> getPermit(@PathVariable("permitId") int permitId) {
 		return permisoService.getPermit(permitId).map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-
-	@GetMapping("/all-permits")
-	public ResponseEntity<List<Permiso>> findPermits() {
-		return permisoService.findPermits().map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
-				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	
+	@PostMapping("/save-permits")
+	public ResponseEntity<Permiso> save(@RequestBody Permiso permiso) {
+		return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update-permit")

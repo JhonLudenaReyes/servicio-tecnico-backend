@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,12 @@ public class PermitController {
 	
 	@GetMapping("/all-permits")
 	public ResponseEntity<List<Permit>> getPermits(){
-		return new ResponseEntity<>(permitService.getPermits(), HttpStatus.OK);
+		return permitService.getPermits().map( permits -> new ResponseEntity<>(permits, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+	
+	@PostMapping("/save-permit")
+	public ResponseEntity<Permit> save(@RequestBody Permit permit){
+		return new ResponseEntity<>(permitService.save(permit),HttpStatus.CREATED);
 	}
 
 }
