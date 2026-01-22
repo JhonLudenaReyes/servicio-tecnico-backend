@@ -9,7 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name = "personas")
 public class Persona {
 	
@@ -18,85 +21,31 @@ public class Persona {
 	@Column(name = "id_persona")
 	private Integer idPersona;
 	
-	@Column(name = "id_localidad")
-	private Integer idLocalidad;
+	@Column(name = "id_ciudad")
+	private Integer idCiudad;
 	
 	private String nombres;
 	
 	private String apellidos;
 	
+	private String cedula;
+	
+	private String ruc;
+	
 	private String direccion;
 	
 	private String celular;
 	
+	private String email;
+	
+	private String telefono;
+	
+	private String telefono_adicional;
+	
 	private String estado = "A";
 	
 	@ManyToOne
-	@JoinColumn(name = "id_localidad", insertable = false, updatable = false)
-	private Localidad localidad;
-
-	public Integer getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
-	}
-
-	public Integer getIdLocalidad() {
-		return idLocalidad;
-	}
-
-	public void setIdLocalidad(Integer idLocalidad) {
-		this.idLocalidad = idLocalidad;
-	}
-
-	public String getNombres() {
-		return nombres;
-	}
-
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-
-	public String getApellidos() {
-		return apellidos;
-	}
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Localidad getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
-	}
+	@JoinColumn(name = "id_ciudad", insertable = false, updatable = false)
+	private Ciudad ciudad;
 
 }

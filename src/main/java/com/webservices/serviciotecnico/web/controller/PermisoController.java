@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,24 +27,27 @@ public class PermisoController {
 	@Autowired
 	private PermisoService permisoService;
 
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/all-permits")
 	public ResponseEntity<List<Permiso>> findPermits() {
 		return permisoService.findPermits().map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{permitId}")
 	public ResponseEntity<Permiso> getPermit(@PathVariable("permitId") int permitId) {
 		return permisoService.getPermit(permitId).map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save-permits")
 	public ResponseEntity<Permiso> save(@RequestBody Permiso permiso) {
 		return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.CREATED);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/update-permit")
 	public ResponseEntity<Permiso> updatePermit(@RequestBody Permiso permit) {
 		Optional<Permiso> optionalPermit = permisoService.getPermit(permit.getIdPermiso());
@@ -54,6 +58,7 @@ public class PermisoController {
 		}
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/delete-permit-by-id/{permitId}")
 	public ResponseEntity<Permiso> deletePermitById(@PathVariable("permitId") int permitId){
 		Optional<Permiso> optionalPermit = permisoService.getPermit(permitId);

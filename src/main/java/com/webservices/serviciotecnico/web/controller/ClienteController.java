@@ -3,6 +3,7 @@ package com.webservices.serviciotecnico.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save-client")
 	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente){
 		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
