@@ -11,8 +11,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -24,10 +31,18 @@ public class Usuario {
 	@Column(name = "id_persona")
 	private Integer idPersona;
 
+	@NotNull(message = "No debe enviar datos nulos")
+	@NotBlank(message = "Debe ingresar un nombre sin dejar espacios en blanco")
+	@Size(min = 5, message = "Debe ingresar un mínimo de 5 caráteres")
+	@Size(max = 10, message = "Debe ingresar un mínimo de 10 caráteres")
+	@Column(length = 10, nullable = false)
 	private String usuario;
 
+	@Column(length = 10, nullable = false)
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,10}$", message = "La contraseña debe tener al menos un número, una mayúscula, una minúscula, un carácter especial, y tener entre 8 y 10 caracteres.")
 	private String contrasenia;
 
+	@Column(columnDefinition = "varchar(1) not null default 'A'")
 	private String estado = "A";
 
 	@ManyToOne
@@ -38,59 +53,4 @@ public class Usuario {
 	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
 	private List<Rol> roles;
 
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
-
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-	public Integer getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
-
-	public List<Rol> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Rol> roles) {
-		this.roles = roles;
-	}
 }
