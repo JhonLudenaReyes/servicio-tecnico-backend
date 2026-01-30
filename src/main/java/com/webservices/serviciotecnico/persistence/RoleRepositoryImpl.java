@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.webservices.serviciotecnico.domain.repository.RoleRepository;
 import com.webservices.serviciotecnico.persistence.dao.RoleDaoRepository;
-import com.webservices.serviciotecnico.persistence.model.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository{

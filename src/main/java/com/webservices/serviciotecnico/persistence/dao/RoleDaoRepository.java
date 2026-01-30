@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.webservices.serviciotecnico.persistence.model.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 public interface RoleDaoRepository extends JpaRepository<Role, Integer>{
 	

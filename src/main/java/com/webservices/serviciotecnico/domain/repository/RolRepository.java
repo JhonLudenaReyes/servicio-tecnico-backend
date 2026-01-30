@@ -9,7 +9,5 @@ public interface RolRepository {
 	
 	Optional<Rol> getRole(int idRole);
 	Optional<List<Rol>> getAllRolesActive();
-	Optional<List<Rol>> getRoles();
 	Rol saveRol(Rol rol);
-
 }

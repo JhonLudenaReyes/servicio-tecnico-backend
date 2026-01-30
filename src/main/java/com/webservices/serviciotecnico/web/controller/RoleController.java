@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservices.serviciotecnico.domain.service.RoleService;
-import com.webservices.serviciotecnico.persistence.model.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 @RestController
 @RequestMapping("/role-list")

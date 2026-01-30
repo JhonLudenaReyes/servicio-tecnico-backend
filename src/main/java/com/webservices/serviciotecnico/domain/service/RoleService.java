@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webservices.serviciotecnico.domain.repository.RoleRepository;
-import com.webservices.serviciotecnico.persistence.model.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 @Service
 public class RoleService {

@@ -23,10 +23,6 @@ public class RolService {
 		return rolRepository.getAllRolesActive();
 	}
 	
-	public Optional<List<Rol>> getRoles(){
-		return rolRepository.getRoles();
-	}
-	
 	public Rol saveRol(Rol rol) {
 		return rolRepository.saveRol(rol);
 	}

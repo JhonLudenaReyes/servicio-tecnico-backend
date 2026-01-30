@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.webservices.serviciotecnico.domain.service.RolService;
 import com.webservices.serviciotecnico.persistence.model.Rol;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 @RestController
 @RequestMapping("/roles")
@@ -29,13 +30,6 @@ public class RolController {
 	@GetMapping("/active-roles")
 	public ResponseEntity<List<Rol>> getAllRoles(){
 		return rolService.getRolesActive().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
-				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/get-roles")
-	public ResponseEntity<List<Rol>> getRoles(){
-		return rolService.getRoles().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	

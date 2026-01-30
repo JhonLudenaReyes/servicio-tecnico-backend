@@ -3,7 +3,7 @@ package com.webservices.serviciotecnico.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.webservices.serviciotecnico.persistence.model.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.Role;
 
 public interface RoleRepository {
 	
