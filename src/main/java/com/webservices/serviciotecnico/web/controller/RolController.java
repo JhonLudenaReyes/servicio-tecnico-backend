@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.webservices.serviciotecnico.domain.service.RolService;
 import com.webservices.serviciotecnico.persistence.model.Rol;
-import com.webservices.serviciotecnico.persistence.model.entity.Role;
+import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 
 @RestController
 @RequestMapping("/roles")
@@ -61,6 +61,14 @@ public class RolController {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	//Controlador para los metodos de la entidad RolSelect
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/roles-select")
+	public ResponseEntity<List<RolSelect>> getActiveRoles(){
+		return rolService.getRolesSelect().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
 }

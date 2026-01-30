@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.webservices.serviciotecnico.domain.repository.RolRepository;
 import com.webservices.serviciotecnico.persistence.model.Rol;
+import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 
 @Service
 public class RolService {
@@ -25,5 +26,9 @@ public class RolService {
 	
 	public Rol saveRol(Rol rol) {
 		return rolRepository.saveRol(rol);
+	}
+	
+	public Optional<List<RolSelect>> getRolesSelect(){
+		return rolRepository.getRolesSelect();
 	}
 }

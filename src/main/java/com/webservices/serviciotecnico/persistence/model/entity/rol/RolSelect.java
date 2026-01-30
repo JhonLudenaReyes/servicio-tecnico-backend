@@ -1,4 +1,4 @@
-package com.webservices.serviciotecnico.persistence.model.entity;
+package com.webservices.serviciotecnico.persistence.model.entity.rol;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "roles")
-public class Role {
+public class RolSelect {
 	
 	@Id
 	@Column(name = "id_rol")

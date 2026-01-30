@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,7 +28,7 @@ public class Rol {
 	
 	@NotNull(message = "No debe enviar datos nulos")
 	@Size(min = 5, message = "Debe ingresar un mínimo de 5 caráteres")
-	@Size(max = 20, message = "Debe ingresar un mínimo de 10 caráteres")
+	@Size(max = 20, message = "Debe ingresar un máximo de 20 caráteres")
 	@Column(length = 20, nullable = false)
 	private String rol;
 	
