@@ -41,6 +41,12 @@ public class RolRepositoryImpl implements RolRepository{
 		return rolDaoRepository.findById(idRole);
 	}
 	
+	@Override
+	public Optional<RolSelect> getRoleSelect(int roleId) {
+		// TODO Auto-generated method stub
+		return rolSelectDaoRepository.findById(roleId);
+	}
+	
 	//Implementación de los metodos para la entidad RolSelect
 	@Override
 	public Optional<List<RolSelect>> getRolesSelect() {

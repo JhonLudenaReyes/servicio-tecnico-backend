@@ -20,6 +20,10 @@ public class RolService {
 		return rolRepository.getRole(idRole);
 	}
 	
+	public Optional<RolSelect> getRoleSelect(int roleId){
+		return rolRepository.getRoleSelect(roleId);
+	}
+	
 	public Optional<List<Rol>> getRolesActive(){
 		return rolRepository.getAllRolesActive();
 	}

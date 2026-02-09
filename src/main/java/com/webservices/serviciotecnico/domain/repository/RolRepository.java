@@ -9,10 +9,12 @@ import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 public interface RolRepository {
 	
 	Optional<Rol> getRole(int idRole);
+	
 	Optional<List<Rol>> getAllRolesActive();
 	Rol saveRol(Rol rol);
 	
 	
 	//Metodos para la entidad RolSelect
+	Optional<RolSelect> getRoleSelect(int roleId);
 	Optional<List<RolSelect>> getRolesSelect();
 }

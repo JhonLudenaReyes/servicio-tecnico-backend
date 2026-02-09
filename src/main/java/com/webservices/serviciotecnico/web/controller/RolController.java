@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.webservices.serviciotecnico.domain.service.RolService;
 import com.webservices.serviciotecnico.persistence.model.Rol;
 import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
@@ -22,51 +21,75 @@ import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 @RestController
 @RequestMapping("/roles")
 public class RolController {
-	
+
 	@Autowired
 	private RolService rolService;
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/role-permits/{roleId}")
+	public ResponseEntity<?> getRole(@PathVariable("roleId") int roleId) {
+		Optional<Rol> role = rolService.getRole(roleId);
+		if(role.isPresent()) {
+			return new ResponseEntity<>(role, HttpStatus.OK);	
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/role-select/{roleId}")
+	public ResponseEntity<?> getRoleSelect(@PathVariable("roleId") int roleId) {
+		Optional<RolSelect> roleSelect = rolService.getRoleSelect(roleId);
+		if(roleSelect.isPresent()) {
+			return new ResponseEntity<>(roleSelect, HttpStatus.OK);	
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/active-roles")
-	public ResponseEntity<List<Rol>> getAllRoles(){
+	public ResponseEntity<List<Rol>> getAllRoles() {
 		return rolService.getRolesActive().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save")
-	public ResponseEntity<Rol> saveRol(@RequestBody Rol rol){
+	public ResponseEntity<Rol> saveRol(@RequestBody Rol rol) {
 		return new ResponseEntity<>(rolService.saveRol(rol), HttpStatus.OK);
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/update-role")
-	public ResponseEntity<Rol> updateRole(@RequestBody Rol rol){
+	public ResponseEntity<Rol> updateRole(@RequestBody Rol rol) {
 		Optional<Rol> optionalRole = rolService.getRole(rol.getIdRol());
-		if(optionalRole.isPresent()) {
+		if (optionalRole.isPresent()) {
 			return new ResponseEntity<>(rolService.saveRol(rol), HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/delete-role/{idRole}")
-	public ResponseEntity<Rol> deleteRole(@PathVariable("idRole") int idRole){
+	public ResponseEntity<Rol> deleteRole(@PathVariable("idRole") int idRole) {
 		Optional<Rol> optionalRole = rolService.getRole(idRole);
-		if(optionalRole.isPresent()) {
+		if (optionalRole.isPresent()) {
 			Rol updateRole = optionalRole.get();
 			updateRole.setEstado("I");
 			return new ResponseEntity<>(rolService.saveRol(updateRole), HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	//Controlador para los metodos de la entidad RolSelect
+
+	// Controlador para los metodos de la entidad RolSelect
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/roles-select")
-	public ResponseEntity<List<RolSelect>> getActiveRoles(){
+	public ResponseEntity<List<RolSelect>> getActiveRoles() {
 		return rolService.getRolesSelect().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
