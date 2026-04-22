@@ -12,8 +12,11 @@ import com.webservices.serviciotecnico.persistence.model.Persona;
 @Service
 public class PersonaService {
 
-	@Autowired
-	private PersonaRepository personaRepository;
+	private final PersonaRepository personaRepository;
+
+	public PersonaService(PersonaRepository personaRepository) {
+		this.personaRepository = personaRepository;
+	}
 
 	public Optional<Persona> getPersona(int idPersona) {
 		return personaRepository.getPersona(idPersona);

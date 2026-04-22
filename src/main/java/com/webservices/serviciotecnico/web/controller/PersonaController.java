@@ -22,30 +22,29 @@ import com.webservices.serviciotecnico.persistence.model.Persona;
 @RequestMapping("/personas")
 public class PersonaController {
 
-	@Autowired
-	private PersonaService personaService;
+	private final PersonaService personaService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	public PersonaController(PersonaService personaService) {
+		this.personaService = personaService;
+	}
+
 	@GetMapping("/{idPersona}")
 	public ResponseEntity<Persona> getPersona(@PathVariable("idPersona") int idPersona) {
 		return personaService.getPersona(idPersona).map(persona -> new ResponseEntity<>(persona, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/people-active")
 	public ResponseEntity<List<Persona>> getAllPeople() {
 		return personaService.getAllPeople().map(personas -> new ResponseEntity<>(personas, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save")
 	public ResponseEntity<Persona> save(@RequestBody Persona persona) {
 		return new ResponseEntity<>(personaService.save(persona), HttpStatus.CREATED);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/update-person")
 	public ResponseEntity<Persona> updatePerson(@RequestBody Persona persona){
 		Optional<Persona> optionalPerson = personaService.getPersona(persona.getIdPersona());
@@ -56,7 +55,6 @@ public class PersonaController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/delete-person-log/{personId}")
 	public ResponseEntity<Persona> deletePerson(@PathVariable("personId") int personId){
 		Optional<Persona> optionalPerson = personaService.getPersona(personId);

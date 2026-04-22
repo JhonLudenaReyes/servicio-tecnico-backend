@@ -9,8 +9,11 @@ import com.webservices.serviciotecnico.persistence.model.Cliente;
 @Service
 public class ClienteService {
 	
-	@Autowired
-	private ClienteRepository clienteRepository;
+	private final ClienteRepository clienteRepository;
+
+	public ClienteService(ClienteRepository clienteRepository) {
+		this.clienteRepository = clienteRepository;
+	}
 	
 	public Cliente save(Cliente cliente) {
 		return clienteRepository.save(cliente);

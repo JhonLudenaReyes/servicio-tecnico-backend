@@ -18,10 +18,12 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 @RequestMapping("usuarios")
 public class UsuarioController {
 	
-	@Autowired
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
+
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> getUsuarioLogin(@RequestBody Usuario usuario){
 		return usuarioService.getUsuarioLogin(usuario.getUsuario(), usuario.getContrasenia())
@@ -29,7 +31,6 @@ public class UsuarioController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/login/{usuario}/{contrasenia}")
 	public ResponseEntity<Usuario> getUsuarioLogin(@PathVariable("usuario") String usuario, @PathVariable("contrasenia") String contrasenia){
 		return usuarioService.getUsuarioLogin(usuario, contrasenia)

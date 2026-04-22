@@ -12,8 +12,11 @@ import com.webservices.serviciotecnico.persistence.model.Ciudad;
 @Service
 public class CiudadService {
 
-	@Autowired
-	private CiudadRepository ciudadRepository;
+	private final CiudadRepository ciudadRepository;
+
+	public CiudadService(CiudadRepository ciudadRepository) {
+		this.ciudadRepository = ciudadRepository;
+	}
 	
 	public Optional<List<Ciudad>> getCiudades(){
 		return ciudadRepository.getCiudades("A");

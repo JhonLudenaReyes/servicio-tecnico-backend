@@ -21,54 +21,51 @@ import com.webservices.serviciotecnico.persistence.model.Permiso;
 @RestController
 @RequestMapping("/permisos")
 public class PermisoController {
-	
-	//Permit Class
 
-	@Autowired
-	private PermisoService permisoService;
+	private final PermisoService permisoService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/all-permits")
-	public ResponseEntity<List<Permiso>> findPermits() {
-		return permisoService.findPermits().map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
+	public PermisoController(PermisoService permisoService) {
+		this.permisoService = permisoService;
+	}
+
+	@GetMapping("/all-permisos")
+	public ResponseEntity<List<Permiso>> findPermisos() {
+		return permisoService.findPermisos().map(permisos -> new ResponseEntity<>(permisos, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/{permitId}")
-	public ResponseEntity<Permiso> getPermit(@PathVariable("permitId") int permitId) {
-		return permisoService.getPermit(permitId).map(permit -> new ResponseEntity<>(permit, HttpStatus.OK))
+
+	@GetMapping("/{idPermiso}")
+	public ResponseEntity<Permiso> getPermiso(@PathVariable("idPermiso") int idPermiso) {
+		return permisoService.getPermiso(idPermiso).map(permiso -> new ResponseEntity<>(permiso, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/save-permits")
+
+	@PostMapping("/save-permisos")
 	public ResponseEntity<Permiso> save(@RequestBody Permiso permiso) {
 		return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.CREATED);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PutMapping("/update-permit")
-	public ResponseEntity<Permiso> updatePermit(@RequestBody Permiso permit) {
-		Optional<Permiso> optionalPermit = permisoService.getPermit(permit.getIdPermiso());
-		if(optionalPermit.isPresent()) {
-			return new ResponseEntity<>(permisoService.save(permit), HttpStatus.OK);
-		}else {
+	@PutMapping("/update-permiso")
+	public ResponseEntity<Permiso> updatePermiso(@RequestBody Permiso permiso) {
+		Optional<Permiso> optionalPermiso = permisoService.getPermiso(permiso.getIdPermiso());
+		if (optionalPermiso.isPresent()) {
+			return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.OK);
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PutMapping("/delete-permit-by-id/{permitId}")
-	public ResponseEntity<Permiso> deletePermitById(@PathVariable("permitId") int permitId){
-		Optional<Permiso> optionalPermit = permisoService.getPermit(permitId);
-		if(optionalPermit.isPresent()) {
-			Permiso updatePermit = optionalPermit.get();
-			updatePermit.setEstado("I");
-			return new ResponseEntity<>(permisoService.save(updatePermit), HttpStatus.OK);
-		}else {
+
+	@PutMapping("/delete-permiso-by-id/{idPermiso}")
+	public ResponseEntity<Permiso> deletePermisoById(@PathVariable("idPermiso") int idPermiso) {
+		Optional<Permiso> optionalPermiso = permisoService.getPermiso(idPermiso);
+		if (optionalPermiso.isPresent()) {
+			Permiso updatePermiso = optionalPermiso.get();
+			updatePermiso.setEstado("I");
+			return new ResponseEntity<>(permisoService.save(updatePermiso), HttpStatus.OK);
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 }
+

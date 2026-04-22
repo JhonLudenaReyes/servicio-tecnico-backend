@@ -13,8 +13,11 @@ import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 @Service
 public class RolService {
 
-	@Autowired
-	private RolRepository rolRepository;
+	private final RolRepository rolRepository;
+
+	public RolService(RolRepository rolRepository) {
+		this.rolRepository = rolRepository;
+	}
 	
 	public Optional<Rol> getRole(int idRole){
 		return rolRepository.getRole(idRole);

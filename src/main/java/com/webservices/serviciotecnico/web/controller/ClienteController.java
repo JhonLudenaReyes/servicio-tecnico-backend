@@ -16,10 +16,12 @@ import com.webservices.serviciotecnico.persistence.model.Cliente;
 @RequestMapping("/clientes")
 public class ClienteController {
 	
-	@Autowired
-	private ClienteService clienteService;
+	private final ClienteService clienteService;
+
+	public ClienteController(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save-client")
 	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente){
 		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);

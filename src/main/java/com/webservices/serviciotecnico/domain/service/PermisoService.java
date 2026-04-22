@@ -12,19 +12,22 @@ import com.webservices.serviciotecnico.persistence.model.Permiso;
 @Service
 public class PermisoService {
 	
-	@Autowired
-	private PermisoRepository permisoRepository;
+	private final PermisoRepository permisoRepository;
+
+	public PermisoService(PermisoRepository permisoRepository) {
+		this.permisoRepository = permisoRepository;
+	}
 	
 	public Permiso save(Permiso permiso) {
 		return permisoRepository.save(permiso);
 	}
 	
-	public Optional<List<Permiso>> findPermits(){
-		return permisoRepository.findPermits();
+	public Optional<List<Permiso>> findPermisos(){
+		return permisoRepository.findPermisos();
 	}
 	
-	public Optional<Permiso> getPermit(int permitId){
-		return permisoRepository.getPermit(permitId);
+	public Optional<Permiso> getPermiso(int idPermiso){
+		return permisoRepository.getPermiso(idPermiso);
 	}
 
 }

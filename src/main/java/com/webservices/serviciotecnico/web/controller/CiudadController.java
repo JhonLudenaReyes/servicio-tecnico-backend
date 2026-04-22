@@ -16,16 +16,19 @@ import com.webservices.serviciotecnico.persistence.model.Ciudad;
 @RestController
 @RequestMapping("/ciudades")
 public class CiudadController {
-	
-	@Autowired
-	private CiudadService ciudadService;
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/lista")
-	public ResponseEntity<List<Ciudad>> getCiudades(){
-		return ciudadService.getCiudades()
-				.map(ciudades -> new ResponseEntity<>(ciudades, HttpStatus.OK))
+
+	private final CiudadService ciudadService;
+
+	public CiudadController(CiudadService ciudadService) {
+		this.ciudadService = ciudadService;
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Ciudad>> getAll(){
+		return ciudadService.getAll().map(ciudades -> new ResponseEntity<>(ciudades, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
+
+}
 
 }

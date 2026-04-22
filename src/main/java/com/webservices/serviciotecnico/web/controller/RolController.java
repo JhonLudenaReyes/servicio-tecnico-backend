@@ -22,10 +22,12 @@ import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 @RequestMapping("/roles")
 public class RolController {
 
-	@Autowired
-	private RolService rolService;
+	private final RolService rolService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	public RolController(RolService rolService) {
+		this.rolService = rolService;
+	}
+
 	@GetMapping("/role-permits/{roleId}")
 	public ResponseEntity<?> getRole(@PathVariable("roleId") int roleId) {
 		Optional<Rol> role = rolService.getRole(roleId);
@@ -36,7 +38,6 @@ public class RolController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/role-select/{roleId}")
 	public ResponseEntity<?> getRoleSelect(@PathVariable("roleId") int roleId) {
 		Optional<RolSelect> roleSelect = rolService.getRoleSelect(roleId);
@@ -49,20 +50,17 @@ public class RolController {
 		
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/active-roles")
 	public ResponseEntity<List<Rol>> getAllRoles() {
 		return rolService.getRolesActive().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/save")
 	public ResponseEntity<Rol> saveRol(@RequestBody Rol rol) {
 		return new ResponseEntity<>(rolService.saveRol(rol), HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/update-role")
 	public ResponseEntity<Rol> updateRole(@RequestBody Rol rol) {
 		Optional<Rol> optionalRole = rolService.getRole(rol.getIdRol());
@@ -73,7 +71,6 @@ public class RolController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/delete-role/{idRole}")
 	public ResponseEntity<Rol> deleteRole(@PathVariable("idRole") int idRole) {
 		Optional<Rol> optionalRole = rolService.getRole(idRole);
@@ -87,7 +84,6 @@ public class RolController {
 	}
 
 	// Controlador para los metodos de la entidad RolSelect
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/roles-select")
 	public ResponseEntity<List<RolSelect>> getActiveRoles() {
 		return rolService.getRolesSelect().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))

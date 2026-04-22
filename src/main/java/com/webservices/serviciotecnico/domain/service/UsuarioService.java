@@ -11,8 +11,11 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 @Service
 public class UsuarioService {
 	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private final UsuarioRepository usuarioRepository;
+
+	public UsuarioService(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
 	
 	public Optional<Usuario> getUsuarioLogin(String usuario, String contrasenia){
 		return usuarioRepository.getUsuarioLogin(usuario, contrasenia);

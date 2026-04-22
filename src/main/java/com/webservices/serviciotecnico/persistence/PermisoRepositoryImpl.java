@@ -13,28 +13,25 @@ import com.webservices.serviciotecnico.persistence.model.Permiso;
 @Repository
 public class PermisoRepositoryImpl implements PermisoRepository{
 	
-	@Autowired
-	private PermisoDaoRepository permisoDaoRepository;
+	private final PermisoDaoRepository permisoDaoRepository;
+
+	public PermisoRepositoryImpl(PermisoDaoRepository permisoDaoRepository) {
+		this.permisoDaoRepository = permisoDaoRepository;
+	}
 
 	@Override
 	public Permiso save(Permiso permiso) {
-		// TODO Auto-generated method stub 
 		return permisoDaoRepository.save(permiso);
 	}
 
 	@Override
-	public Optional<List<Permiso>> findPermits() {
-		// TODO Auto-generated method stub
-		Optional<List<Permiso>> permisos = permisoDaoRepository.findAllByEstado("A");
-		return permisos;
+	public Optional<List<Permiso>> findPermisos() {
+		return permisoDaoRepository.findAllByEstado("A");
 	}
 
 	@Override
-	public Optional<Permiso> getPermit(int permitId) {
-		// TODO Auto-generated method stub
-		return permisoDaoRepository.findById(permitId);
+	public Optional<Permiso> getPermiso(int idPermiso) {
+		return permisoDaoRepository.findById(idPermiso);
 	}
-	
-	
 
 }
