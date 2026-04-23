@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name="permisos")
 public class Permiso {
 	
@@ -18,24 +21,5 @@ public class Permiso {
 	
 	private String permiso;
 	private String estado="A";
-	
-	public Integer getIdPermiso() {
-		return idPermiso;
-	}
-	public void setIdPermiso(Integer idPermiso) {
-		this.idPermiso = idPermiso;
-	}
-	public String getPermiso() {
-		return permiso;
-	}
-	public void setPermiso(String permiso) {
-		this.permiso = permiso;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
 
 }

@@ -25,10 +25,9 @@ public class CiudadController {
 
 	@GetMapping("/all")
 	public ResponseEntity<List<Ciudad>> getAll(){
-		return ciudadService.getAll().map(ciudades -> new ResponseEntity<>(ciudades, HttpStatus.OK))
+		return ciudadService.getCiudades().map(ciudades -> new ResponseEntity<>(ciudades, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
 }
 
-}

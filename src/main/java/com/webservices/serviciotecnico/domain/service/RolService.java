@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webservices.serviciotecnico.domain.repository.RolRepository;
+import com.webservices.serviciotecnico.persistence.dtos.RolSelect;
 import com.webservices.serviciotecnico.persistence.model.Rol;
-import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 
 @Service
 public class RolService {

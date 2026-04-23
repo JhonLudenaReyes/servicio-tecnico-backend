@@ -1,4 +1,4 @@
-package com.webservices.serviciotecnico.persistence.model.entity.rol;
+package com.webservices.serviciotecnico.persistence.dtos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

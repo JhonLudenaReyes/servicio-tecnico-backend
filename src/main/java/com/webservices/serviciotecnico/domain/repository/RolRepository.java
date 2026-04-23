@@ -3,8 +3,8 @@ package com.webservices.serviciotecnico.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.webservices.serviciotecnico.persistence.dtos.RolSelect;
 import com.webservices.serviciotecnico.persistence.model.Rol;
-import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 
 public interface RolRepository {
 	

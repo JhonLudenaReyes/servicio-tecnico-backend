@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.webservices.serviciotecnico.domain.service.RolService;
+import com.webservices.serviciotecnico.persistence.dtos.RolSelect;
 import com.webservices.serviciotecnico.persistence.model.Rol;
-import com.webservices.serviciotecnico.persistence.model.entity.rol.RolSelect;
 
 @RestController
 @RequestMapping("/roles")
