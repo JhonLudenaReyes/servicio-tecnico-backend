@@ -7,5 +7,7 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 public interface UsuarioRepository {
 	
 	Optional<Usuario> getUsuarioLogin(String usuario, String contrasenia);
+	Usuario save(Usuario usuario);
+	Optional<Usuario> getByUsuario(String usuario);
 
 }

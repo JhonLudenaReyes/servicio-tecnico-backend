@@ -8,6 +8,7 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 
 public interface UsuarioDaoRepository extends JpaRepository<Usuario, Integer>{
 	
+	Optional<Usuario> findByUsuario(String usuario);
 	Optional<Usuario> findByUsuarioAndContrasenia(String usuario, String contrasenia);
 
 }

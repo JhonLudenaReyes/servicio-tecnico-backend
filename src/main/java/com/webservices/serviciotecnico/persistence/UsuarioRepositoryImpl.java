@@ -12,13 +12,25 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository{
 	
-	@Autowired
-	private UsuarioDaoRepository usuarioDaoRepository;
+	private final UsuarioDaoRepository usuarioDaoRepository;
+
+	public UsuarioRepositoryImpl(UsuarioDaoRepository usuarioDaoRepository) {
+		this.usuarioDaoRepository = usuarioDaoRepository;
+	}
 
 	@Override
 	public Optional<Usuario> getUsuarioLogin(String usuario, String contrasenia) {
-		// TODO Auto-generated method stub
 		return usuarioDaoRepository.findByUsuarioAndContrasenia(usuario, contrasenia);
+	}
+
+	@Override
+	public Usuario save(Usuario usuario) {
+		return usuarioDaoRepository.save(usuario);
+	}
+
+	@Override
+	public Optional<Usuario> getByUsuario(String usuario) {
+		return usuarioDaoRepository.findByUsuario(usuario);
 	}
 
 }

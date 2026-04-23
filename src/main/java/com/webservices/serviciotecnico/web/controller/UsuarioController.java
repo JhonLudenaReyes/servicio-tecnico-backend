@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.webservices.serviciotecnico.domain.service.UsuarioService;
 import com.webservices.serviciotecnico.persistence.model.Usuario;
 
+import org.springframework.security.core.Authentication;
+
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
@@ -24,16 +26,14 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<Usuario> getUsuarioLogin(@RequestBody Usuario usuario){
-		return usuarioService.getUsuarioLogin(usuario.getUsuario(), usuario.getContrasenia())
-				.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	@PostMapping("/save")
+	public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
+		return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
 	}
-	
-	@GetMapping("/login/{usuario}/{contrasenia}")
-	public ResponseEntity<Usuario> getUsuarioLogin(@PathVariable("usuario") String usuario, @PathVariable("contrasenia") String contrasenia){
-		return usuarioService.getUsuarioLogin(usuario, contrasenia)
+
+	@GetMapping("/me")
+	public ResponseEntity<Usuario> getAuthenticatedUser(Authentication authentication) {
+		return usuarioService.getByUsuario(authentication.getName())
 				.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
