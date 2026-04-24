@@ -1,6 +1,5 @@
 package com.webservices.serviciotecnico.domain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webservices.serviciotecnico.domain.repository.ClienteRepository;

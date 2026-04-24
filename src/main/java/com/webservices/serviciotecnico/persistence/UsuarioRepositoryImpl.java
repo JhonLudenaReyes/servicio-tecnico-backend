@@ -2,7 +2,6 @@ package com.webservices.serviciotecnico.persistence;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.webservices.serviciotecnico.domain.repository.UsuarioRepository;
