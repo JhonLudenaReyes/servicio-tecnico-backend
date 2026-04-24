@@ -16,25 +16,31 @@ import com.webservices.serviciotecnico.persistence.model.Usuario;
 
 import org.springframework.security.core.Authentication;
 
+import com.webservices.serviciotecnico.domain.dto.UsuarioDTO;
+import com.webservices.serviciotecnico.domain.mapper.UsuarioMapper;
+
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
 	
 	private final UsuarioService usuarioService;
+	private final UsuarioMapper usuarioMapper;
 
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper) {
 		this.usuarioService = usuarioService;
+		this.usuarioMapper = usuarioMapper;
 	}
 	
 	@PostMapping("/save")
-	public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
-		return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
+	public ResponseEntity<UsuarioDTO> save(@RequestBody Usuario usuario) {
+		Usuario savedUser = usuarioService.save(usuario);
+		return new ResponseEntity<>(usuarioMapper.toDTO(savedUser), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/me")
-	public ResponseEntity<Usuario> getAuthenticatedUser(Authentication authentication) {
+	public ResponseEntity<UsuarioDTO> getAuthenticatedUser(Authentication authentication) {
 		return usuarioService.getByUsuario(authentication.getName())
-				.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+				.map(user -> new ResponseEntity<>(usuarioMapper.toDTO(user), HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
