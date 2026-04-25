@@ -38,8 +38,9 @@ public class Usuario {
 	@Column(length = 10, nullable = false)
 	private String usuario;
 
-	@Column(length = 10, nullable = false)
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,10}$", message = "La contraseña debe tener al menos un número, una mayúscula, una minúscula, un carácter especial, y tener entre 8 y 10 caracteres.")
+	@Column(length = 255, nullable = false)
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,255}$", 
+	         message = "La contraseña debe tener al menos un número, una mayúscula, una minúscula, un carácter especial, y tener entre 8 y 255 caracteres.")
 	private String contrasenia;
 
 	@Column(columnDefinition = "varchar(1) not null default 'A'")

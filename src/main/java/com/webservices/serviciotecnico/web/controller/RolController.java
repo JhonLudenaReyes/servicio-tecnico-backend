@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.webservices.serviciotecnico.domain.dto.RolSelectDTO;
+import com.webservices.serviciotecnico.domain.mapper.RolSelectMapper;
 import com.webservices.serviciotecnico.domain.service.RolService;
 import com.webservices.serviciotecnico.persistence.dtos.RolSelect;
 import com.webservices.serviciotecnico.persistence.model.Rol;
@@ -21,9 +24,11 @@ import com.webservices.serviciotecnico.persistence.model.Rol;
 public class RolController {
 
 	private final RolService rolService;
+	private final RolSelectMapper rolSelectMapper;
 
-	public RolController(RolService rolService) {
+	public RolController(RolService rolService, RolSelectMapper rolSelectMapper) {
 		this.rolService = rolService;
+		this.rolSelectMapper = rolSelectMapper;
 	}
 
 	@GetMapping("/role-permits/{roleId}")
@@ -51,6 +56,13 @@ public class RolController {
 	@GetMapping("/active-roles")
 	public ResponseEntity<List<Rol>> getAllRoles() {
 		return rolService.getRolesActive().map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+	
+	@GetMapping("/actives/roles-select")
+	public ResponseEntity<List<RolSelectDTO>> getRolSelectDTO() {
+		return rolService.getRolesActive()
+				.map(roles -> new ResponseEntity<>(rolSelectMapper.toDTOList(roles), HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 

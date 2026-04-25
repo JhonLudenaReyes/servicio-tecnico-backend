@@ -22,7 +22,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/usuarios/login/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+            // Endpoints públicos (Login, Registro y Documentación)
+            .antMatchers(
+                "/usuarios/login/**",
+                "/usuarios/save", 
+                "/swagger-ui.html", 
+                "/swagger-ui/**", 
+                "/api-docs/**", 
+                "/v3/api-docs/**",
+                "/favicon.ico"
+            ).permitAll()
             .anyRequest().authenticated()
             .and()
             .httpBasic();
