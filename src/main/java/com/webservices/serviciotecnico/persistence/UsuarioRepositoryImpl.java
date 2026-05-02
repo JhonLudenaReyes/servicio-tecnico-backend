@@ -32,4 +32,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository{
 		return usuarioDaoRepository.findByUsuario(usuario);
 	}
 
+	@Override
+	public Optional<Usuario> findById(Integer id) {
+		return usuarioDaoRepository.findById(id);
+	}
+
 }

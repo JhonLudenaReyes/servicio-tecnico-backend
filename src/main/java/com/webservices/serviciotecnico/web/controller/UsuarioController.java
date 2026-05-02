@@ -2,8 +2,11 @@ package com.webservices.serviciotecnico.web.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +40,20 @@ public class UsuarioController {
 	@GetMapping("/me")
 	public ResponseEntity<UsuarioDTO> getAuthenticatedUser(Authentication authentication) {
 		return usuarioService.getByUsuario(authentication.getName())
+				.map(user -> new ResponseEntity<>(usuarioMapper.toDTO(user), HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<UsuarioDTO> update(@PathVariable Integer id, @RequestBody Usuario usuario) {
+		return usuarioService.update(id, usuario)
+				.map(user -> new ResponseEntity<>(usuarioMapper.toDTO(user), HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<UsuarioDTO> delete(@PathVariable Integer id) {
+		return usuarioService.delete(id)
 				.map(user -> new ResponseEntity<>(usuarioMapper.toDTO(user), HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}

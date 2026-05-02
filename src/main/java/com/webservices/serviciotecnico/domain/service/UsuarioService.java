@@ -29,6 +29,31 @@ public class UsuarioService {
 		return usuarioRepository.getByUsuario(usuario);
 	}
 	
+	public Optional<Usuario> findById(Integer id) {
+		return usuarioRepository.findById(id);
+	}
+
+	public Optional<Usuario> update(Integer id, Usuario usuario) {
+		return usuarioRepository.findById(id).map(existingUser -> {
+			// Solo actualizamos las propiedades solicitadas
+			existingUser.setUsuario(usuario.getUsuario());
+			
+			// Si la contraseña viene en la petición, se encripta de nuevo
+			if (usuario.getContrasenia() != null && !usuario.getContrasenia().isEmpty()) {
+				existingUser.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+			}
+			
+			return usuarioRepository.save(existingUser);
+		});
+	}
+
+	public Optional<Usuario> delete(Integer id) {
+		return usuarioRepository.findById(id).map(existingUser -> {
+			existingUser.setEstado("I");
+			return usuarioRepository.save(existingUser);
+		});
+	}
+
 	public Optional<Usuario> getUsuarioLogin(String usuario, String contrasenia){
 		return usuarioRepository.getUsuarioLogin(usuario, contrasenia);
 	}
