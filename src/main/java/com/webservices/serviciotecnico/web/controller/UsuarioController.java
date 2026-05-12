@@ -18,19 +18,49 @@ import org.springframework.security.core.Authentication;
 
 import com.webservices.serviciotecnico.domain.dto.UsuarioDTO;
 import com.webservices.serviciotecnico.domain.mapper.UsuarioMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import com.webservices.serviciotecnico.web.security.JwtUtils;
+import com.webservices.serviciotecnico.web.security.UserDetailsServiceImpl;
+import com.webservices.serviciotecnico.domain.dto.AuthenticationResponse;
 
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
-	
+
 	private final UsuarioService usuarioService;
 	private final UsuarioMapper usuarioMapper;
+	private final AuthenticationManager authenticationManager;
+	private final UserDetailsServiceImpl userDetailsService;
+	private final JwtUtils jwtUtils;
 
-	public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper) {
+	public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper, 
+			AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, 
+			JwtUtils jwtUtils) {
 		this.usuarioService = usuarioService;
 		this.usuarioMapper = usuarioMapper;
+		this.authenticationManager = authenticationManager;
+		this.userDetailsService = userDetailsService;
+		this.jwtUtils = jwtUtils;
 	}
-	
+
+	@PostMapping("/authenticate")
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody Usuario usuario) throws Exception {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(usuario.getUsuario(), usuario.getContrasenia())
+			);
+		} catch (Exception e) {
+			throw new Exception("Usuario o contraseña incorrectos", e);
+		}
+
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getUsuario());
+		final String jwt = jwtUtils.generateToken(userDetails);
+
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<UsuarioDTO> save(@RequestBody Usuario usuario) {
 		Usuario savedUser = usuarioService.save(usuario);
